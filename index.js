@@ -7,6 +7,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 var users = [];
+var messages = [];
 
 var server = http.createServer(app);
 server.listen(8080);
@@ -26,16 +27,37 @@ io.sockets.on('connect', (socket)=>{
 			clientId: socket.id
 		}
 		users.push(clientInfo);
-		console.log(data);
+		// console.log(data);
 		// Emit takes 2 args:
 		// 1. Event (we make this up)
 		// 2. Data to send
 		io.sockets.emit('newUser', users);
 	});
 	socket.on('messageToServer', (messageObject)=>{
-		console.log(messageObject);
-		io.sockets.emit('messageToClient', messageObject);
-	})
+		// console.log(messageObject);
+		messages.unshift(messageObject);
+		if(messages.length > 50){ // Will only keep the last 50 messages.
+			messages.pop();
+		}
+		// console.log(messages);
+		io.sockets.emit('messageToClient', messages);
+	});
+	socket.on('userLeft', (userWhoLeft)=>{
+		var indexToRemove;
+		// console.log(users);
+		console.log(`${userWhoLeft.name} has left.`);
+		for(let i = 0; i < users.length; i++){
+			if(userWhoLeft.name == users[i].name){
+				indexToRemove = i;
+			}
+		};
+		users.splice(indexToRemove, 1);
+		// console.log(users);
+		io.sockets.emit('messageREExit', {
+			users: users,
+			userWhoLeft: userWhoLeft
+		});
+	});
 });
 
 console.log('The server is listening on port 8080.');

@@ -3,6 +3,7 @@
 <head>
 	<title>Chat app with node and socket.io</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -14,16 +15,18 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-3" id="users">
-				<h3>Connected Users</h3>
+		<div class="row chatroom">
+			<div class="col-sm-3" id="user-list">
+				<h3><span class="num-users"></span><span class="connected-users">Connected Users</span></h3>
+				<div id="users">
+				</div>
 			</div>
-			<div class="col-sm-9" id="messages">
+			<div class="col-sm-7" id="messages">
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-2">
 				<form id="submit-message">
-					<input type="text" id="new-message" />
-					<button type="submit" class="btn btn-success">Send!</button>
+					<textarea id="new-message" placeholder="Your message"></textarea>
+					<button type="submit" class="btn btn-success submit-button">Send!</button>
 				</form>
 			</div>
 		</div>

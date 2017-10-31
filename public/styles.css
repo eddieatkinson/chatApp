@@ -1,0 +1,24 @@
+.chatroom{
+	margin-top: 15px;
+}
+#user-list, #messages{
+	border: 1px solid black;
+	height: 100vh;
+	overflow: scroll;
+}
+.name-display{
+	font-weight: bolder;
+	color: blue;
+}
+.message-display{
+	border-radius: 10px;
+	background-color: #C7F69A;
+	margin: 10px;
+	padding: 5px;
+}
+.whole-message{
+	margin: 10px;
+}
+.submit-button{
+	margin-top: 10px;
+}
